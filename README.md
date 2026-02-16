@@ -53,7 +53,7 @@ cp .env.example .env
 ```env
 TOGGLE_API_TOKEN=your_toggle_token_here
 TOGGLE_WORKSPACE_ID=your_workspace_id
-TOGGLE_CLIENT_NAME=CGC Consulting
+TOGGLE_CLIENT_NAME=client_name
 
 JIRA_URL=https://your-domain.atlassian.net
 JIRA_EMAIL=your-email@example.com
@@ -141,7 +141,7 @@ To test without making actual changes:
 ### 1. Entry Preparation
 - Fetches Toggle entries from start date (first day of last synced month, or user-specified date)
 - Rounds all entry times UP to whole minutes (Jira Tempo limitation)
-- Filters by client name ("CGC Consulting")
+- Filters by client name
 - Extracts Jira issue keys from project names
 - Validates issue keys exist in Jira
 - Detects new vs. modified vs. duplicate entries
@@ -278,7 +278,7 @@ db.close()
 Check logs in `logs/` directory for detailed error messages.
 
 For API credential issues, verify:
-1. Toggle token works: https://api.track.toggl.com/api/v8/me
+1. Toggle token works: https://api.track.toggl.com/api/v9/me
 2. Jira token works: `https://your-domain.atlassian.net/rest/api/3/myself`
 
 ## Future Enhancements
