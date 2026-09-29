@@ -139,18 +139,20 @@ class ToggleAPI:
         except Exception as e:
             logger.warning(f"Failed to fetch projects: {e}")
             return []
-    
+
     def _matches_client_filter(self, project_data):
         """Check if project belongs to the target client."""
         config = get_config()
-        target_client = config.toggle_client_name
-        
+        target_client_id = config.toggle_client_id
+
         if not project_data:
             return False
-        
-        # In Toggle, check if project has client relation
-        # For now, accept all projects unless we need stricter filtering
-        return True
+
+        if not target_client_id:
+            return True
+
+        client_id = project_data.get('client_id') or project_data.get('cid')
+        return str(client_id) == str(target_client_id)
     
     def get_single_entry(self, entry_id):
         """Get a single time entry by ID."""

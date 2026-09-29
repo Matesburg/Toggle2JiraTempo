@@ -53,7 +53,7 @@ cp .env.example .env
 ```env
 TOGGLE_API_TOKEN=your_toggle_token_here
 TOGGLE_WORKSPACE_ID=your_workspace_id
-TOGGLE_CLIENT_NAME=client_name
+TOGGLE_CLIENT_ID=your_toggle_client_id
 
 JIRA_URL=https://your-domain.atlassian.net
 JIRA_EMAIL=your-email@example.com
@@ -99,6 +99,22 @@ $response.workspace_id
 
 **Note:** Workspace ID is typically a 7-8 digit number. If you only have one workspace, that's your ID.
 
+### Toggle Client ID
+
+Filtering is done by client **ID**, not by name, since client names can be renamed later while the ID stays stable.
+
+1. Get your Toggle API token and workspace ID first (see above)
+2. Open PowerShell and run:
+```powershell
+$token = "YOUR_TOGGLE_API_TOKEN"
+$workspaceId = "YOUR_WORKSPACE_ID"
+$auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${token}:api_token"))
+$response = Invoke-RestMethod -Uri "https://api.track.toggl.com/api/v9/workspaces/$workspaceId/clients" `
+  -Headers @{Authorization = "Basic $auth"}
+$response | Select-Object id, name
+```
+3. Find your client in the list and copy its `id`
+
 ### Jira API Token
 1. Go to https://id.atlassian.com/manage-profile/security/api-tokens
 2. Click "Create API token"
@@ -141,7 +157,7 @@ To test without making actual changes:
 ### 1. Entry Preparation
 - Fetches Toggle entries from start date (first day of last synced month, or user-specified date)
 - Rounds all entry times UP to whole minutes (Jira Tempo limitation)
-- Filters by client name
+- Filters by client ID
 - Extracts Jira issue keys from project names
 - Validates issue keys exist in Jira
 - Detects new vs. modified vs. duplicate entries

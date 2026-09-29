@@ -17,7 +17,7 @@ class Config:
         # Toggle Configuration
         self.toggle_api_token = os.getenv('TOGGLE_API_TOKEN')
         self.toggle_workspace_id = os.getenv('TOGGLE_WORKSPACE_ID')
-        self.toggle_client_name = os.getenv('TOGGLE_CLIENT_NAME', 'CGC Consulting')
+        self.toggle_client_id = os.getenv('TOGGLE_CLIENT_ID')
         
         # Jira Configuration
         self.jira_url = os.getenv('JIRA_URL')
@@ -54,7 +54,7 @@ class Config:
         return {
             'toggle_api_token': self.toggle_api_token,
             'toggle_workspace_id': self.toggle_workspace_id,
-            'toggle_client_name': self.toggle_client_name,
+            'toggle_client_id': self.toggle_client_id,
             'jira_url': self.jira_url,
             'jira_email': self.jira_email,
             'jira_api_token': self.jira_api_token,
